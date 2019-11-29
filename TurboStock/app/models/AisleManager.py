@@ -4,6 +4,10 @@ from .Aisle import Aisle
 
 class AisleManager(User):
     """
-    This class models an Aisle Manager of an aisle in a store
+    This class models an Aisle Manager of an aisle in a store.
+
+    Attributes:
+        aisle (int): the ID of the Aisle of which the manager is in charge. 
+            It is a FK from Aisle.
     """
     aisle = models.OneToOneField(Aisle, on_delete=models.CASCADE)
