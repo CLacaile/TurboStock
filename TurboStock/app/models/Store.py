@@ -6,7 +6,7 @@ class Store(models.Model):
     """
     id = models.AutoField(primary_key=True)
     address = models.CharField(max_length=100)
-    city = models.CharField(max_field=50)
+    city = models.CharField(max_length=50)
 
     def __str__(self):
         return "Store #" + self.id
