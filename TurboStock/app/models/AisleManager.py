@@ -10,4 +10,4 @@ class AisleManager(User):
         aisle (int): the ID of the Aisle of which the manager is in charge. 
             It is a FK from Aisle.
     """
-    aisle = models.OneToOneField(Aisle, on_delete=models.CASCADE)
+    aisle = models.OneToOneField(Aisle, null=True, on_delete=models.CASCADE)
