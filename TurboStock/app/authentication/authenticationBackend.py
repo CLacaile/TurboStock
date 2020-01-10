@@ -1,11 +1,20 @@
-from models import User
+from app.models import User
 class AuthenticationBackend:
     def authenticate(self, request, username=None, password=None):
-            user = User.objects.get(email=username)
+        try:
+            user = User.User.objects.get(email=username)
             if user != None:
-                if user.password == password:  # check valid password
-                    return user  # return user to be authenticated
+                if user.password == password:
+                    return user
+            return None
+        except User.User.DoesNotExist:
             return None
 
     def has_perm(self, user, perm, obj=None):
         print("caca")
+
+    def get_user(self, user_id):
+        try:
+            return User.User.objects.get(id=user_id)
+        except Exception:
+            return None
