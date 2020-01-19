@@ -1,0 +1,12 @@
+[
+    {
+        "model": "app.User",
+        "pk": 1,
+        "fields": {
+            "first_name": "admin",
+            "last_name": "turbostock",
+            "password": "turbostock"
+        }
+
+    }
+]
