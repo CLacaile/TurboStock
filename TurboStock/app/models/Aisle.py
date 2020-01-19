@@ -15,6 +15,8 @@ class Aisle(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50)
     store = models.ForeignKey(Store, on_delete=models.CASCADE)
+    objects = models.Manager()
+
 
     def __str__(self):
         return self.name

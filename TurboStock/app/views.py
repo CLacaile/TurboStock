@@ -4,6 +4,8 @@ from django.contrib.auth import authenticate, login as log, logout as out
 
 from app.models import AisleManager
 from app.models import User
+from app.models import Store
+
 
 def home(request):
     print(type(request.user.child_object()).__name__)

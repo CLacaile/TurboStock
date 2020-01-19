@@ -11,3 +11,4 @@ class AisleManager(User):
             It is a FK from Aisle.
     """
     aisle = models.OneToOneField(Aisle, null=True, on_delete=models.CASCADE)
+    objects = models.Manager()
