@@ -15,8 +15,12 @@ def home(request):
 
 
 def login(request):
-    #user = User(first_name="test", last_name="test", email="test", password="test")
-    #user.save()
+    try:
+        user = User(first_name="test", last_name="test", email="test", password="test")
+        user.save()
+    except:
+        print("User test already exist")
+
     return render(request, 'login.html')
 
 

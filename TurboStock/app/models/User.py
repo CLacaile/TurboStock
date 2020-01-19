@@ -15,7 +15,7 @@ class User(models.Model):
     id = models.AutoField(primary_key=True)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    email = models.CharField(max_length=100)
+    email = models.CharField(unique=True, max_length=100)
     password = models.CharField(max_length=100)
     last_login = models.CharField(null=True, default=None, max_length=100)
     objects = models.Manager()
