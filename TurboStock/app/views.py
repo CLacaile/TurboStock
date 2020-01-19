@@ -2,11 +2,11 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login as log, logout as out
 
-from app.models import AisleManager
-from app.models import User
+from .models import AisleManager, StoreManager
+from .models import User
 
 def home(request):
-    print(type(request.user.child_object()).__name__)
+    #print(type(request.user.child_object()).__name__)
     if request.user.is_authenticated:
         return render(request, 'home.html')
     else:
@@ -26,6 +26,8 @@ def logout(request):
 def auth(request):
     username = request.POST['username']
     password = request.POST['password']
+    print("username = " + username)
+    print("password = " + password)
     user = authenticate(request, username=username, password=password)
 
     if user is not None:
@@ -38,9 +40,11 @@ def auth(request):
 
 def store(request):
     """ View fonction detail page of a store """
-    stores_list = Store.objects.all()
+    stores = Store.objects.all()
+    store_managers = StoreManager.objects.all()
     context = {
-        'stores_list': stores_list,
+        'stores': stores,
+        'store_managers': store_managers,
     }
     return render(request, 'index.html', context=context)
 
@@ -48,7 +52,9 @@ def store(request):
 def store_detail(request, store_id):
     """ View fonction detail page of a store """
     store = Store.objects.filter(id=store_id)
+    store_manager = StoreManager.objects.filter(store_id=store_id)
     context = {
         'store': store,
+        'store_manager': store_manager,
     }
     return render(request, 'index.html', context=context)
