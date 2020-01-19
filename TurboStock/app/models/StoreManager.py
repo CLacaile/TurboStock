@@ -11,3 +11,5 @@ class StoreManager(User):
             store is deleted, the field keeps the value.
     """
     store = models.OneToOneField(Store, on_delete=models.DO_NOTHING)
+    objects = models.Manager()
+

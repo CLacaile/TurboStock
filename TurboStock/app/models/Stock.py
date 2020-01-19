@@ -19,6 +19,8 @@ class Stock(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     aisle = models.ForeignKey(Aisle, on_delete=models.CASCADE)
     quantity = models.IntegerField()
+    objects = models.Manager()
+
 
     class Meta:
         unique_together = (('product', 'aisle'))

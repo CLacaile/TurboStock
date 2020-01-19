@@ -15,6 +15,8 @@ def home(request):
 
 
 def login(request):
+    #user = User(first_name="test", last_name="test", email="test", password="test")
+    #user.save()
     return render(request, 'login.html')
 
 
@@ -32,7 +34,7 @@ def auth(request):
 
     if user is not None:
         log(request, user)
-        return render(request,'home.html')
+        return render(request, 'home.html')
     else:
         print("Authentification failed : bad credentials")
         return render(request, 'login.html')
