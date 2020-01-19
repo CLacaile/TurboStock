@@ -1,7 +1,6 @@
 from django.contrib.auth import authenticate, login as log, logout as out
 from django.shortcuts import render
 
-
 # Create your views here.
 from app.models import AisleManager
 from app.models import User
@@ -17,11 +16,14 @@ def home(request):
 
 
 def login(request):
+    #user = User(first_name="test", last_name="test", email="test", password="test")
+    #user.save()
     return render(request, 'login.html')
 
 def logout(request):
     out(request)
     return render(request, 'login.html')
+
 
 def auth(request):
     username = request.POST['username']
@@ -30,8 +32,7 @@ def auth(request):
 
     if user is not None:
         log(request, user)
-        return render(request,'home.html')
+        return render(request, 'home.html')
     else:
         print("Authentification failed : bad credentials")
         return render(request, 'login.html')
-

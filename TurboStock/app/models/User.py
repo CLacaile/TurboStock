@@ -1,7 +1,5 @@
 from django.db import models
 
-
-
 class User(models.Model):
     """
     This class is the base class for any user of the app. It should not be instanciated at any
