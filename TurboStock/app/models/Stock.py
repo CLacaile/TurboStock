@@ -25,3 +25,9 @@ class Stock(models.Model):
     
     def __str__(self):
         return "Product: " + self.product.name + " at aisle " + self.aisle.name + " qty = " + self.quantity
+
+    def save(self, *args, **kwargs):
+        if self.quantity < 0:
+            raise ValueError
+        else:
+            super().save(*args, **kwargs)

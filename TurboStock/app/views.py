@@ -1,10 +1,9 @@
-from django.contrib.auth import authenticate, login as log, logout as out
+from django.http import HttpResponse
 from django.shortcuts import render
+from django.contrib.auth import authenticate, login as log, logout as out
 
-# Create your views here.
 from app.models import AisleManager
 from app.models import User
-
 
 def home(request):
     print(type(request.user.child_object()).__name__)
@@ -19,6 +18,7 @@ def login(request):
     #user = User(first_name="test", last_name="test", email="test", password="test")
     #user.save()
     return render(request, 'login.html')
+
 
 def logout(request):
     out(request)
@@ -36,3 +36,21 @@ def auth(request):
     else:
         print("Authentification failed : bad credentials")
         return render(request, 'login.html')
+
+
+def store(request):
+    """ View fonction detail page of a store """
+    stores_list = Store.objects.all()
+    context = {
+        'stores_list': stores_list,
+    }
+    return render(request, 'index.html', context=context)
+
+
+def store_detail(request, store_id):
+    """ View fonction detail page of a store """
+    store = Store.objects.filter(id=store_id)
+    context = {
+        'store': store,
+    }
+    return render(request, 'index.html', context=context)
