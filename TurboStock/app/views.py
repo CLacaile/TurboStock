@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth import authenticate, login as log_in, logout as log_out
 
 from .models import Store
@@ -78,23 +78,15 @@ def auth(request):
         return render(request, 'login.html', context=context)
 
 
-def store(request):
+
+def store(request, store_id):
     """ View fonction detail page of a store """
-    stores = Store.objects.all()
+    store = get_object_or_404(Store, pk=store_id)
     store_managers = StoreManager.objects.all()
-    context = {
-        'stores': stores,
-        'store_managers': store_managers,
-    }
-    return render(request, 'index.html', context=context)
-
-
-def store_detail(request, store_id):
-    """ View fonction detail page of a store """
-    store = Store.objects.filter(id=store_id)
     store_manager = StoreManager.objects.filter(store_id=store_id)
     context = {
         'store': store,
+        'store_managers': store_managers,
         'store_manager': store_manager,
     }
-    return render(request, 'index.html', context=context)
+    return render(request, 'store.html', context=context)
