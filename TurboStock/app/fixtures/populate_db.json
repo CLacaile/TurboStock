@@ -9,5 +9,24 @@
             "password": "turbostock"
         }
 
+    },
+    {
+        "model": "app.Store",
+        "pk": 1,
+        "fields": {
+            "address": "1 rue de la gestion des stocks",
+            "city": "Stockland"
+        }
+    },
+    {
+        "model": "app.StoreManager",
+        "pk": 1,
+        "fields": {
+            "first_name": "Jean-Michel",
+            "last_name": "Décatte",
+            "email": "jm.decatte@turbostock.fr",
+            "password": "turbostock",
+            "store_id": 1
+        }
     }
 ]
