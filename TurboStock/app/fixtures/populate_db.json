@@ -5,6 +5,7 @@
         "fields": {
             "first_name": "admin",
             "last_name": "turbostock",
+            "email": "admin@turbostock.fr",
             "password": "turbostock"
         }
 
