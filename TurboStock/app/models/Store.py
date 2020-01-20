@@ -12,8 +12,8 @@ class Store(models.Model):
     id = models.AutoField(primary_key=True)
     address = models.CharField(max_length=100, default="")
     city = models.CharField(max_length=50, default="")
-    objects = models.Manager()
+    #objects = models.Manager()
 
 
     def __str__(self):
-        return "Store #" + self.id
+        return "Store " + str(self.id) + " - " + self.city
