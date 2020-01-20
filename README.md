@@ -34,8 +34,11 @@ Windows\TurboStock$ venv\Scripts\activate.bat
 
 3. Populate DB
 ```Shell
-(venv) Windows\TurboStock\TurboStock$ python manage.py loaddata populate_db
+(venv) Windows\TurboStock\TurboStock$ python manage.py loaddata <fixture>
 ```
+Several fixtures are available:
+* populate_stores
+* populate_users
 
 4. Run server
 ```Shell
