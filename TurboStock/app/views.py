@@ -30,11 +30,9 @@ def logout(request):
 
 
 def auth(request):
-    username = request.POST['username']
+    email = request.POST['email']
     password = request.POST['password']
-    print("username = " + username)
-    print("password = " + password)
-    user = authenticate(request, username=username, password=password)
+    user = authenticate(request, username=email, password=password)
 
     if user is not None:
         log(request, user)
