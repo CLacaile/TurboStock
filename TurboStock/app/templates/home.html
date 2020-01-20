@@ -1,10 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-COUCOU
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1>Magasins</h1>
+        {% if stores %}
+            <table class="table">
+                <tr>
+                    <th>Numéro</th>
+                    <th>Ville</th>
+                    <th>Adresse</th>
+                    <th>Gérant</th>
+                </tr>
+                {% for s in stores %}
+                    <tr>
+                        <th>{{ s.id }}</th>
+                        <th>{{ s.city }}</th>
+                        <th>{{ s.address }}</th>
+                        {% for m in store_managers %}
+                            {% if m.store == s %}
+                                <th>{{ m }}</th>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <p>Il n'y a pas de magasins dans la base de données.</p>
+        {% endif %}
+    </div>
+{% endblock  %}
