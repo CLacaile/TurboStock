@@ -3,31 +3,37 @@
 {% block content %}
     <div class="container">
         <h1>Magasins</h1>
-        {% if stores %}
-            <table class="table">
-                <thead>
-                    <th>Numéro</th>
-                    <th>Ville</th>
-                    <th>Adresse</th>
-                    <th>Gérant</th>
-                    <th></th>
-                </thead>
-                {% for s in stores %}
-                    <tr>
-                        <th>{{ s.id }}</th>
-                        <th>{{ s.city }}</th>
-                        <th>{{ s.address }}</th>
-                        {% for m in store_managers %}
-                            {% if m.store == s %}
-                                <th>{{ m }}</th>
-                            {% endif %}
-                        {% endfor %}
-                        <th><a href="/store/{{s.id}}"><button type="button" class="btn btn-info">Consulter</button></th>
-                    </tr>
-                {% endfor %}
-            </table>
-        {% else %}
-            <p>Il n'y a pas de magasins dans la base de données.</p>
-        {% endif %}
+        <div class="section">
+            <a href="#"><button type="button" class="btn btn-success mr-2">Ajouter un magasin</button></a>
+        </div>
+        <div class="section">
+            <h2>Liste des magasins</h2>
+            {% if stores %}
+                <table class="table">
+                    <thead>
+                        <th>Numéro</th>
+                        <th>Ville</th>
+                        <th>Adresse</th>
+                        <th>Gérant</th>
+                        <th></th>
+                    </thead>
+                    {% for s in stores %}
+                        <tr>
+                            <th>{{ s.id }}</th>
+                            <th>{{ s.city }}</th>
+                            <th>{{ s.address }}</th>
+                            {% for m in store_managers %}
+                                {% if m.store == s %}
+                                    <th>{{ m }}</th>
+                                {% endif %}
+                            {% endfor %}
+                            <th><a href="/store/{{s.id}}"><button type="button" class="btn btn-info">Consulter</button></th>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <p>Il n'y a pas de magasins dans la base de données.</p>
+            {% endif %}
+        </div>
     </div>
 {% endblock  %}
