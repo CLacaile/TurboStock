@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1>{{ store }}</h1>
+        <!-- Gérant -->
+        <div class="input-group mb-3">
+            <!-- Combo box -->
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelect01">Gérant</label>
+            </div>
+            <!-- Drop down list of managers -->
+            <select class="custom-select" id="inputGroupSelect01">
+                {% if store_managers %}
+                    {% for m in store_managers %}
+                        {% if store_manager == m %}
+                            <option selected value={{m.id}}>{{m}}</option>
+                        {% else %}
+                            <option value={{m.id}}>{{m}}</option>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <option selected>Choisir un manager...</option>
+                {% endif %}
+            </select>
+        </div>
+        <!-- Address -->
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Adresse</span>
+            </div>
+            <input type="text" class="form-control" value={{ store.address }} placeholder="Adresse" aria-label="Adresse" aria-describedby="basic-addon1">
+        </div>
+        <!-- Ville -->
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Ville</span>
+            </div>
+            <input type="text" class="form-control" value={{ store.city }} placeholder="Ville" aria-label="Ville" aria-describedby="basic-addon1">
+        </div>
+    </div>
+{% endblock content %}

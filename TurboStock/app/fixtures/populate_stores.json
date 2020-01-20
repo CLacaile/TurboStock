@@ -1,0 +1,10 @@
+[
+    {
+        "model": "app.Store",
+        "pk": 1,
+        "fields": {
+            "address": "1 rue des Sports",
+            "city": "Tours"
+        }
+    }
+]
