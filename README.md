@@ -39,6 +39,7 @@ Windows\TurboStock$ venv\Scripts\activate.bat
 Several fixtures are available:
 * populate_stores
 * populate_users
+* populate_aisles
 
 4. Run server
 ```Shell
