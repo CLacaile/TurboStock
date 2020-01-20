@@ -5,12 +5,13 @@
         <h1>Magasins</h1>
         {% if stores %}
             <table class="table">
-                <tr>
+                <thead>
                     <th>Numéro</th>
                     <th>Ville</th>
                     <th>Adresse</th>
                     <th>Gérant</th>
-                </tr>
+                    <th></th>
+                </thead>
                 {% for s in stores %}
                     <tr>
                         <th>{{ s.id }}</th>
@@ -21,6 +22,7 @@
                                 <th>{{ m }}</th>
                             {% endif %}
                         {% endfor %}
+                        <th><a href="/store/{{s.id}}"><button type="button" class="btn btn-info">Consulter</button></th>
                     </tr>
                 {% endfor %}
             </table>
