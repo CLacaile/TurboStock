@@ -106,3 +106,4 @@ venv.bak/
 
 # vsc
 .vscode/
+TurboStock/db.sqlite3-journal
