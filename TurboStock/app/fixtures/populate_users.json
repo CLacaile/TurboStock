@@ -34,5 +34,41 @@
             "store_id": 1
         }
 
+    },
+    {
+        "model": "app.User",
+        "pk": 3,
+        "fields": {
+            "first_name": "Francois",
+            "last_name": "Pecheur",
+            "email": "f.pecheur@turbostock.fr",
+            "password": "turbostock"
+        }
+    },
+    {
+        "model": "app.AisleManager",
+        "fields": {
+            "user_ptr_id": 3,
+            "aisle_id": 1
+        }
+
+    },
+    {
+        "model": "app.User",
+        "pk": 4,
+        "fields": {
+            "first_name": "Marc",
+            "last_name": "Fouteux",
+            "email": "m.fouteux@turbostock.fr",
+            "password": "turbostock"
+        }
+    },
+    {
+        "model": "app.AisleManager",
+        "fields": {
+            "user_ptr_id": 4,
+            "aisle_id": 2
+        }
+
     }
 ]
