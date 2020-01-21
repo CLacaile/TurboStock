@@ -64,8 +64,10 @@
                             <th>{{ a.id }}</th>
                             <th>{{ a.name }}</th>
                             {% for m in aisle_managers %}
-                                {% if m.aisle == a %}
-                                    <th>{{ a }}</th>
+                                {% if m.aisle_id == a.id %}
+                                    <th>{{ m }}</th>
+                                {% else %}
+                                    <th>Pas de chef de rayon</th>
                                 {% endif %}
                             {% endfor %}
                             <th><a href="/store/{{ store.id }}/aisle/{{ a.id }}"><button type="button" class="btn btn-info">Consulter</button></th>
