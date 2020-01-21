@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth import authenticate, login as log_in, logout as log_out
 
-from .models import Store
+from .models import Store, Aisle
 from .models import AisleManager, StoreManager
 from .models import User
 
@@ -84,9 +84,13 @@ def store(request, store_id):
     store = get_object_or_404(Store, pk=store_id)
     store_managers = StoreManager.objects.all()
     store_manager = StoreManager.objects.filter(store_id=store_id)
+    aisles = Aisle.objects.filter(store_id=store_id)
+    aisle_managers = AisleManager.objects.filter(aisle_id__in=aisles)
     context = {
         'store': store,
         'store_managers': store_managers,
         'store_manager': store_manager,
+        'aisles': aisles,
+        'aisle_managers': aisle_managers,
     }
     return render(request, 'store.html', context=context)
