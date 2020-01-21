@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login as log_in, logout as log_out
-
+from app.authentication import authentication as au
 from .models import Store
 from .models import AisleManager, StoreManager
 from .models import User
@@ -21,12 +21,18 @@ def get_stores_context():
     }
     return context
 
+
 def home(request):
     """ Home function
 
     This function renders the list of stores in DB in home.html. It calls get_stores_context().
     """
+
     if request.user.is_authenticated:
+
+        store = Store.objects.get(id=1)
+        print(au.has_permission_on_item(request.user, store))
+
         context = get_stores_context()
         return render(request, 'home.html', context=context)
     else:
@@ -49,8 +55,8 @@ def logout(request):
     """
     log_out(request)
     context = {
-            'message': "Vous avez été déconnecté."
-        }
+        'message': "Vous avez été déconnecté."
+    }
     return render(request, 'login.html', context=context)
 
 

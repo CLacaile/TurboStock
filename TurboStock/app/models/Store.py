@@ -16,4 +16,4 @@ class Store(models.Model):
 
 
     def __str__(self):
-        return "Store #" + self.id
+        return "Store #" + str(self.id)

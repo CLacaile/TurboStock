@@ -36,6 +36,6 @@ class User(models.Model):
         for child_class_name in self.child_class_names:
             try:
                 return self.__getattribute__(child_class_name.lower())
-            except eval(child_class_name).DoesNotExist:
+            except:
                 pass
         return self
