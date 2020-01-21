@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load custom_tags %}
+{% block content %}
+{% has_permission_on_item user store as permission %}
+
+<div class="container">
+    <h1>Magasin {{ store.id }} - {{ store.city }} </h1>
+    <form action="/home/" method="post">
+        <div class="form-group row">
+            <label for="inputStoreManager" class="col-sm-2 col-form-label">Gérant</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="inputStoreManager" value="{{ store_manager }}" {% if permission == False %}readonly{% endif %}
+>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputVille" class="col-sm-2 col-form-label">Ville</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="inputVille" value="{{ store.city }}" {% if permission == False %}readonly{% endif %}
+>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputAddress" class="col-sm-2 col-form-label">Adresse</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="inputAddress" value="{{ store.address }}" {% if permission == False %}readonly{% endif %}
+>
+            </div>
+        </div>
+        {% csrf_token %}
+        <div class="form-group row">
+            <div class="col-sm-10">
+                <button type="submit" class="btn btn-primary">Modifier</button>
+            </div>
+        </div>
+    </form>
+    {% endblock %}

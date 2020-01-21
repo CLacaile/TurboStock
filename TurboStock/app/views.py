@@ -97,10 +97,14 @@ def store(request):
 
 def store_detail(request, store_id):
     """ View fonction detail page of a store """
-    store = Store.objects.filter(id=store_id)
-    store_manager = StoreManager.objects.filter(store_id=store_id)
+    store = Store.objects.get(id=store_id)
+    store_manager = StoreManager.objects.get(store_id=store_id)
+    store_managers = StoreManager.objects.all()
     context = {
+        'au': au,
+        'user':request.user,
         'store': store,
         'store_manager': store_manager,
+        'store_managers': store_managers,
     }
-    return render(request, 'index.html', context=context)
+    return render(request, 'store.html', context=context)
