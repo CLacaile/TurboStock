@@ -1,0 +1,18 @@
+[
+    {
+        "model": "app.Aisle",
+        "pk": 1,
+        "fields": {
+            "name": "Chasse & Pêche",
+            "store_id": 1
+        }
+    },
+    {
+        "model": "app.Aisle",
+        "pk": 2,
+        "fields": {
+            "name": "Football",
+            "store_id": 1
+        }
+    }
+]
