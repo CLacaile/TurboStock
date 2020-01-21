@@ -94,3 +94,13 @@ def store(request, store_id):
         'aisle_managers': aisle_managers,
     }
     return render(request, 'store.html', context=context)
+
+def aisle(request, store_id, aisle_id):
+    """ View function detail page of an aisle """
+    store = get_object_or_404(Store, pk=store_id)
+    aisle = get_object_or_404(Aisle, pk=aisle_id)
+    context = {
+        'store': store,
+        'aisle': aisle,
+    }
+    return render(request, 'aisle.html', context=context)
