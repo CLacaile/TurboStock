@@ -36,10 +36,12 @@ Windows\TurboStock$ venv\Scripts\activate.bat
 ```Shell
 (venv) Windows\TurboStock\TurboStock$ python manage.py loaddata <fixture>
 ```
-Several fixtures are available:
+Several fixtures are available (if starting from an empty DB, follow the order):
 * populate_stores
 * populate_users
 * populate_aisles
+* populate_products
+* populate_stocks
 
 4. Run server
 ```Shell
