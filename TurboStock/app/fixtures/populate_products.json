@@ -1,0 +1,34 @@
+[
+    {
+        "model": "app.Product",
+        "pk": 1,
+        "fields": {
+            "name": "Chaussures pour Homme Turbo+",
+            "unit_price": 120.0
+        }
+    },
+    {
+        "model": "app.Product",
+        "pk": 2,
+        "fields": {
+            "name": "Chaussures pour Femme Turbo+",
+            "unit_price": 120.0
+        }
+    },
+    {
+        "model": "app.Product",
+        "pk": 3,
+        "fields": {
+            "name": "Veston de chasseur/pêcheur",
+            "unit_price": 90.0
+        }
+    },
+    {
+        "model": "app.Product",
+        "pk": 4,
+        "fields": {
+            "name": "Canne à pêche 10m",
+            "unit_price": 50.0
+        }
+    }
+]
