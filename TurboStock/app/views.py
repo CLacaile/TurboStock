@@ -112,3 +112,11 @@ def aisle(request, store_id, aisle_id):
         'products': products,
     }
     return render(request, 'aisle.html', context=context)
+
+def product(request, product_id):
+    """ View function : detail page of a product """
+    product = get_object_or_404(Product, pk=product_id)
+    context = {
+        "product": product,
+    }
+    return render(request, 'product.html', context=context)
