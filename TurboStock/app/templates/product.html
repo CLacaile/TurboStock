@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+
+        <h1>Produit {{product.id}} - {{ product.name }}</h1>
+
+        <!-- Name -->
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Nom</span>
+            </div>
+            <input type="text" class="form-control" value="{{ product.name }}" placeholder="Nom" aria-label="Nom" aria-describedby="basic-addon1"/>
+        </div>
+
+        <!-- Unit Price -->
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Prix unitaire</span>
+            </div>
+            <input type="text" class="form-control" value="{{ product.unit_price }}" placeholder="Prix unitaire" aria-label="Prix unitaire" aria-describedby="basic-addon1"/>
+        </div>
+
+        <!-- Buttons -->
+        <div class="btn-group" role="group" aria-label="buttons">
+            <a href="#"><button type="button" class="btn btn-primary mr-2">Sauvegarder</button></a>
+            <a href="#"><button type="button" class="btn btn-success mr-2">Créer un nouveau produit</button></a>
+            <a href="#"><button type="button" class="btn btn-danger mr-2">Supprimer le produit</button></a>
+        </div>
+    </div>
+{% endblock content %}
