@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth import authenticate, login as log_in, logout as log_out
 
-from .models import Store, Aisle
+from .models import Store, Aisle, Product, Stock
 from .models import AisleManager, StoreManager
 from .models import User
 
@@ -99,8 +99,16 @@ def aisle(request, store_id, aisle_id):
     """ View function detail page of an aisle """
     store = get_object_or_404(Store, pk=store_id)
     aisle = get_object_or_404(Aisle, pk=aisle_id)
+    aisle_manager = AisleManager.objects.filter(aisle_id=aisle_id)
+    aisle_managers = AisleManager.objects.all()
+    stocks = Stock.objects.filter(aisle_id=aisle_id)
+    products = Product.objects.all() 
     context = {
         'store': store,
         'aisle': aisle,
+        'aisle_manager': aisle_manager,
+        'aisle_managers': aisle_managers,
+        'stocks': stocks,
+        'products': products,
     }
     return render(request, 'aisle.html', context=context)
