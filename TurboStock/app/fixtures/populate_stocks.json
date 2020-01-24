@@ -1,0 +1,38 @@
+[
+    {
+        "model": "app.Stock",
+        "pk": 1,
+        "fields": {
+            "quantity": 10,
+            "aisle_id": 2,
+            "product_id": 1
+        }
+    },
+    {
+        "model": "app.Stock",
+        "pk": 2,
+        "fields": {
+            "quantity": 15,
+            "aisle_id": 2,
+            "product_id": 2
+        }
+    },
+    {
+        "model": "app.Stock",
+        "pk": 3,
+        "fields": {
+            "quantity": 5,
+            "aisle_id": 1,
+            "product_id": 3
+        }
+    },
+    {
+        "model": "app.Stock",
+        "pk": 4,
+        "fields": {
+            "quantity": 3,
+            "aisle_id": 1,
+            "product_id": 4
+        }
+    }
+]

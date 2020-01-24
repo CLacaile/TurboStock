@@ -1,0 +1,74 @@
+[
+    {
+        "model": "app.User",
+        "pk": 1,
+        "fields": {
+            "first_name": "admin",
+            "last_name": "turbostock",
+            "email": "admin@turbostock.fr",
+            "password": "turbostock"
+        }
+
+    },
+    {
+        "model": "app.CEO",
+        "fields": {
+            "user_ptr_id": 1
+        }
+
+    },
+    {
+        "model": "app.User",
+        "pk": 2,
+        "fields": {
+            "first_name": "Jean-Michel",
+            "last_name": "Décatte",
+            "email": "jm.decatte@turbostock.fr",
+            "password": "turbostock"
+        }
+    },
+    {
+        "model": "app.StoreManager",
+        "fields": {
+            "user_ptr_id": 2,
+            "store_id": 1
+        }
+
+    },
+    {
+        "model": "app.User",
+        "pk": 3,
+        "fields": {
+            "first_name": "Francois",
+            "last_name": "Pecheur",
+            "email": "f.pecheur@turbostock.fr",
+            "password": "turbostock"
+        }
+    },
+    {
+        "model": "app.AisleManager",
+        "fields": {
+            "user_ptr_id": 3,
+            "aisle_id": 1
+        }
+
+    },
+    {
+        "model": "app.User",
+        "pk": 4,
+        "fields": {
+            "first_name": "Marc",
+            "last_name": "Fouteux",
+            "email": "m.fouteux@turbostock.fr",
+            "password": "turbostock"
+        }
+    },
+    {
+        "model": "app.AisleManager",
+        "fields": {
+            "user_ptr_id": 4,
+            "aisle_id": 2
+        }
+
+    }
+]

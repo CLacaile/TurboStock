@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+
+        <a href="/store/{{ store.id }}"><button type="button" class="btn btn-light">< Retour</button></a>
+        <h1>{{ store }}</h1>
+        <p>Rayon {{ aisle.name }}</p>
+
+        <!-- Section : Informations -->
+        <div class="section">
+
+            <h2>Informations</h2>
+
+            <!-- Gérant -->
+            <div class="input-group mb-3">
+                <!-- Combo box -->
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="managersGroupSelect01">Gérant</label>
+                </div>
+                <!-- Drop down list of managers -->
+                <select class="custom-select" id="managersGroupSelect01">
+                    {% if aisle_managers %}
+                        {% for am in aisle_managers %}
+                            {% if aisle_manager == am %}
+                                <option selected value={{am.id}}>{{am}}</option>
+                            {% else %}
+                                <option value={{am.id}}>{{am}}</option>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <option selected>Choisir un manager...</option>
+                    {% endif %}
+                </select>
+            </div>
+
+            <!-- Name -->
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Nom</span>
+                </div>
+                <input type="text" class="form-control" value="{{ aisle.name }}" placeholder="Nom" aria-label="Nom" aria-describedby="basic-addon1"/>
+            </div>
+
+            <!-- Add an existing product -->
+            <div class="input-group mb-3">
+                <!-- Label -->
+                <label class="input-group-text" for="productGroupSelect01">Produits existants</label>
+                <!-- Drop down list of products -->
+                <select class="custom-select" id="productGroupSelect01">
+                    {% if products %}
+                        {% for p in products %}
+                            <option value={{p.id}}>{{p}}</option>
+                        {% endfor %}
+                    {% else %}
+                        <option selected>Pas de produits, veuillez en créer un.</option>
+                    {% endif %}
+                </select>
+                <!-- Button -->
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button">Ajouter le produit</button>
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="btn-group" role="group" aria-label="buttons">
+                <a href="#"><button type="button" class="btn btn-primary mr-2">Sauvegarder</button></a>
+                <a href="#"><button type="button" class="btn btn-success mr-2">Créer un nouveau produit</button></a>
+                <a href="#"><button type="button" class="btn btn-danger mr-2">Supprimer le rayon</button></a>
+            </div>
+
+        </div>
+        <!-- Section : Product list -->
+        <div class="section">
+
+            <h2>Liste des produits du rayon</h2>
+
+            <table class="table">
+                <thead>
+                    <th>Numéro</th>
+                    <th>Nom</th>
+                    <th>Prix</th>
+                    <th>Stock</th>
+                    <th></th>
+                </thead>
+                {% for p in products %}
+                    {% for s in stocks %}
+                        {% if p.id == s.product_id%}
+                            <tr>
+                                <th>{{ p.id }}</th>
+                                <th>{{ p.name }}</th>
+                                <th>{{ p.unit_price}}</th>
+                                <th>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" value="{{ s.quantity}}" placeholder="Quantity" aria-label="Quantity" aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                            <a href="#"><button class="btn btn-outline-success" type="button">+</button></a>
+                                            <a href="#"><button class="btn btn-outline-danger" type="button">-</button></a>
+                                            <a href="#"><button class="btn btn-outline-info" type="button">OK</button></a>
+                                        </div>
+                                    </div>
+                                </th>
+                                <th><a href="/product/{{ p.id }}"><button type="button" class="btn btn-info">Consulter</button></th>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+            </table>
+        </div>
+{% endblock content %}

@@ -6,5 +6,7 @@ urlpatterns = [
     path('authenticate/', views.auth),
     path('login/', views.login),
     path('logout/', views.logout),
-    path('<int:store_id>/', views.store, name='store'),
+    path('store/<int:store_id>/', views.store, name='store'),
+    path('store/<int:store_id>/aisle/<int:aisle_id>', views.aisle, name='aisle'),
+    path('product/<int:product_id>/', views.product, name='product')
 ]
