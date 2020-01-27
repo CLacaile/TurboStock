@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import authenticate, login as log_in, logout as log_out
 from app.authentication import authentication as au
+from app.models import *
 
 from .models import Store, Aisle, Product, Stock
 from .models import AisleManager, StoreManager
@@ -79,8 +80,9 @@ def create_store(request):
     if not request.user.is_authenticated:
         print("not authenticated")
         return render(request, 'login.html', status=401)
+    if type(request.user.child_object()).__name__ != CEO.__name__:
+        return render(request, 'login.html', status=401)
     try:
-
         address = request.POST['address']
         city = request.POST['city']
     except:
@@ -91,14 +93,31 @@ def create_store(request):
         store.save()
     except:
         return render(request, 'newStore.html', status=400)
-    return redirect('/home/') 
+    return redirect('/home/')
+
+
+def delete_store(request, store_id):
+    if not request.user.is_authenticated:
+        print("not authenticated")
+        return render(request, 'login.html', status=401)
+    if type(request.user.child_object()).__name__ != CEO.__name__:
+        return render(request, 'login.html', status=401)
+
+    try:
+        print(Store.objects.get(id=store_id))
+        Store.objects.get(id=store_id).delete()
+        
+    except:
+        redirect('/home/', status=400)
+    return redirect('/home/')
 
 
 def new_store(request):
     if not request.user.is_authenticated:
         print("not authenticated")
         return render(request, 'login.html', status=401)
-    # TODO CHECK IF CEO
+    if type(request.user.child_object()).__name__ != CEO.__name__:
+        return render(request, 'login.html', status=401)
     return render(request, 'newStore.html', status=200)
 
 
