@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>Nouveau magasin</h1>
+    <p class="message">{{ message }}</p>
+    <form method="post" action='/store/create/'>
+        {% csrf_token %}
+        <div class="form-group">
+            <label>Ville</label>
+            <input type="text" class="form-control" name="city">
+        </div>
+        <div class="form-group">
+            <label>Adresse</label>
+            <input type="text" class="form-control" name="address">
+        </div>
+        <button type="submit" class="btn btn-primary">Créer</button>
+    </form>
+
+</div>
+
+
+{% endblock %}

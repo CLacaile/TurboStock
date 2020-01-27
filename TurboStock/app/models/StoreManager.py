@@ -10,6 +10,6 @@ class StoreManager(User):
         store (int): the id of the store that the manager handles. If the
             store is deleted, the field keeps the value.
     """
-    store = models.OneToOneField(Store, on_delete=models.DO_NOTHING)
+    store = models.OneToOneField(Store, null=True, on_delete=models.DO_NOTHING)
     objects = models.Manager()
 

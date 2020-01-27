@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import authenticate, login as log_in, logout as log_out
 from app.authentication import authentication as au
 
@@ -54,8 +54,12 @@ def auth(request):
     it renders 'home.html'. Otherwise it routes the user back to login with a 
     'message' text in context.
     """
-    email = request.POST['email']
-    password = request.POST['password']
+    try:
+        email = request.POST['email']
+        password = request.POST['password']
+    except:
+        return render(request, 'login.html', status=400)
+
     user = authenticate(request, username=email, password=password)
 
     if user is not None:
@@ -69,6 +73,33 @@ def auth(request):
             'message': "Erreur: l'utilisateur/mot de passe n'existe pas !"
         }
         return render(request, 'login.html', context=context, status=401)
+
+
+def create_store(request):
+    if not request.user.is_authenticated:
+        print("not authenticated")
+        return render(request, 'login.html', status=401)
+    try:
+
+        address = request.POST['address']
+        city = request.POST['city']
+    except:
+        return render(request, 'login.html', status=400)
+    try:
+        store = Store.objects.create(address=address, city=city)
+        print(store)
+        store.save()
+    except:
+        return render(request, 'newStore.html', status=400)
+    return redirect('/home/') 
+
+
+def new_store(request):
+    if not request.user.is_authenticated:
+        print("not authenticated")
+        return render(request, 'login.html', status=401)
+    # TODO CHECK IF CEO
+    return render(request, 'newStore.html', status=200)
 
 
 def store(request, store_id):
