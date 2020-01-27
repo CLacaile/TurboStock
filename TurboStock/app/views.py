@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import authenticate, login as log_in, logout as log_out
 from app.authentication import authentication as au
 
@@ -23,24 +23,6 @@ def get_stores_context():
     return context
 
 
-def home(request):
-    """ Home function
-
-    This function renders the list of stores in DB in home.html. It calls get_stores_context().
-    """
-
-    if request.user.is_authenticated:
-
-        store = Store.objects.get(id=1)
-        print(au.has_permission_on_item(request.user, store))
-
-        context = get_stores_context()
-        return render(request, 'home.html', context=context)
-    else:
-        print("not authenticated")
-        return render(request, 'login.html')
-
-
 def login(request):
     """ Login function
 
@@ -54,7 +36,11 @@ def logout(request):
 
     This function renders login.html with a farewell message
     """
-    log_out(request)
+    if not request.user.is_authenticated:
+        print("not authenticated")
+        return render(request, 'login.html', status=401)
+    else:
+        log_out(request)
     context = {
         'message': "Vous avez été déconnecté."
     }
@@ -68,8 +54,12 @@ def auth(request):
     it renders 'home.html'. Otherwise it routes the user back to login with a 
     'message' text in context.
     """
-    email = request.POST['email']
-    password = request.POST['password']
+    try:
+        email = request.POST['email']
+        password = request.POST['password']
+    except:
+        return render(request, 'login.html', status=400)
+
     user = authenticate(request, username=email, password=password)
 
     if user is not None:
@@ -82,13 +72,43 @@ def auth(request):
         context = {
             'message': "Erreur: l'utilisateur/mot de passe n'existe pas !"
         }
-        return render(request, 'login.html', context=context)
+        return render(request, 'login.html', context=context, status=401)
 
+
+def create_store(request):
+    if not request.user.is_authenticated:
+        print("not authenticated")
+        return render(request, 'login.html', status=401)
+    try:
+
+        address = request.POST['address']
+        city = request.POST['city']
+    except:
+        return render(request, 'login.html', status=400)
+    try:
+        store = Store.objects.create(address=address, city=city)
+        print(store)
+        store.save()
+    except:
+        return render(request, 'newStore.html', status=400)
+    return redirect('/home/') 
+
+
+def new_store(request):
+    if not request.user.is_authenticated:
+        print("not authenticated")
+        return render(request, 'login.html', status=401)
+    # TODO CHECK IF CEO
+    return render(request, 'newStore.html', status=200)
 
 
 def store(request, store_id):
     """ View fonction detail page of a store """
-    store = get_object_or_404(Store, pk=store_id)
+    if not request.user.is_authenticated:
+        print("not authenticated")
+        return render(request, 'login.html', status=401)
+    else:
+        store = get_object_or_404(Store, pk=store_id)
     store_managers = StoreManager.objects.all()
     store_manager = StoreManager.objects.filter(store_id=store_id)
     aisles = Aisle.objects.filter(store_id=store_id)
@@ -104,14 +124,33 @@ def store(request, store_id):
     }
     return render(request, 'store.html', context=context)
 
+
+def home(request):
+    """ Home function
+
+    This function renders the list of stores in DB in home.html. It calls get_stores_context().
+    """
+    if not request.user.is_authenticated:
+        print("not authenticated")
+        return render(request, 'login.html', status=401)
+    else:
+        # print(au.has_permission_on_item(request.user, store))
+        context = get_stores_context()
+        return render(request, 'home.html', context=context)
+
+
 def aisle(request, store_id, aisle_id):
     """ View function detail page of an aisle """
-    store = get_object_or_404(Store, pk=store_id)
+    if not request.user.is_authenticated:
+        print("not authenticated")
+        return render(request, 'login.html', status=401)
+    else:
+        store = get_object_or_404(Store, pk=store_id)
     aisle = get_object_or_404(Aisle, pk=aisle_id)
     aisle_manager = AisleManager.objects.filter(aisle_id=aisle_id)
     aisle_managers = AisleManager.objects.all()
     stocks = Stock.objects.filter(aisle_id=aisle_id)
-    products = Product.objects.all() 
+    products = Product.objects.all()
     context = {
         'aisle': aisle,
         'aisle_manager': aisle_manager,
@@ -121,9 +160,14 @@ def aisle(request, store_id, aisle_id):
     }
     return render(request, 'aisle.html', context=context)
 
+
 def product(request, product_id):
     """ View function : detail page of a product """
-    product = get_object_or_404(Product, pk=product_id)
+    if not request.user.is_authenticated:
+        print("not authenticated")
+        return render(request, 'login.html', status=401)
+    else:
+        product = get_object_or_404(Product, pk=product_id)
     context = {
         "product": product,
     }
