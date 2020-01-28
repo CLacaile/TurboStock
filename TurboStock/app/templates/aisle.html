@@ -12,62 +12,65 @@
 
             <h2>Informations</h2>
 
-            <!-- Gérant -->
-            <div class="input-group mb-3">
-                <!-- Combo box -->
-                <div class="input-group-prepend">
-                    <label class="input-group-text" for="managersGroupSelect01">Gérant</label>
-                </div>
-                <!-- Drop down list of managers -->
-                <select class="custom-select" id="managersGroupSelect01">
-                    {% if aisle_managers %}
-                        {% for am in aisle_managers %}
-                            {% if aisle_manager == am %}
-                                <option selected value={{am.id}}>{{am}}</option>
-                            {% else %}
-                                <option value={{am.id}}>{{am}}</option>
-                            {% endif %}
-                        {% endfor %}
-                    {% else %}
-                        <option selected>Choisir un manager...</option>
-                    {% endif %}
-                </select>
-            </div>
+            <form method="post" action='/store/{{store.id}}/aisle/{{aisle.id}}/update/'>
+                {% csrf_token %}
 
-            <!-- Name -->
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon1">Nom</span>
+                <!-- Gérant -->
+                <div class="input-group mb-3">
+                    <!-- Combo box -->
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="managersGroupSelect01">Gérant</label>
+                    </div>
+                    <!-- Drop down list of managers -->
+                    <select class="custom-select" id="managersGroupSelect01" name="manager">
+                        <option>Choisir un manager...</option>
+                        {% if aisle_managers %}
+                            {% for am in aisle_managers %}
+                                {% if aisle_manager == am %}
+                                    <option selected value={{am.id}}>{{am}}</option>
+                                {% else %}
+                                    <option value={{am.id}}>{{am}}</option>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </select>
                 </div>
-                <input type="text" class="form-control" value="{{ aisle.name }}" placeholder="Nom" aria-label="Nom" aria-describedby="basic-addon1"/>
-            </div>
 
-            <!-- Add an existing product -->
-            <div class="input-group mb-3">
-                <!-- Label -->
-                <label class="input-group-text" for="productGroupSelect01">Produits existants</label>
-                <!-- Drop down list of products -->
-                <select class="custom-select" id="productGroupSelect01">
-                    {% if products %}
-                        {% for p in products %}
-                            <option value={{p.id}}>{{p}}</option>
-                        {% endfor %}
-                    {% else %}
-                        <option selected>Pas de produits, veuillez en créer un.</option>
-                    {% endif %}
-                </select>
-                <!-- Button -->
-                <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" type="button">Ajouter le produit</button>
+                <!-- Name -->
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Nom</span>
+                    </div>
+                    <input type="text" class="form-control" name="name" value="{{ aisle.name }}" placeholder="Nom" aria-label="Nom" aria-describedby="basic-addon1"/>
                 </div>
-            </div>
 
-            <!-- Buttons -->
-            <div class="btn-group" role="group" aria-label="buttons">
-                <a href="#"><button type="button" class="btn btn-primary mr-2">Sauvegarder</button></a>
-                <a href="{% url 'newProduct' %}"><button type="button" class="btn btn-success mr-2">Créer un nouveau produit</button></a>
-                <a href="{% url 'deleteAisle' store_id=store.id  aisle_id=aisle.id%}"><button type="button" class="btn btn-danger mr-2">Supprimer le rayon</button></a>
-            </div>
+                <!-- Add an existing product -->
+                <div class="input-group mb-3">
+                    <!-- Label -->
+                    <label class="input-group-text" for="productGroupSelect01">Produits existants</label>
+                    <!-- Drop down list of products -->
+                    <select class="custom-select" id="productGroupSelect01">
+                        <option>Choisir un produit à ajouter</option>
+                        {% if products %}
+                            {% for p in products %}
+                                <option value={{p.id}}>{{p}}</option>
+                            {% endfor %}
+                        {% endif %}
+                    </select>
+                    <!-- Button -->
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="button">Ajouter le produit</button>
+                    </div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="btn-group" role="group" aria-label="buttons">
+                    <button type="submit" class="btn btn-primary mr-2">Sauvegarder</button>
+                    <a href="{% url 'newProduct' %}"><button type="button" class="btn btn-success mr-2">Créer un nouveau produit</button></a>
+                    <a href="{% url 'deleteAisle' store_id=store.id  aisle_id=aisle.id %}"><button type="button" class="btn btn-danger mr-2">Supprimer le rayon</button></a>
+                </div>
+
+            </form>
 
         </div>
         <!-- Section : Product list -->

@@ -12,10 +12,7 @@ def aisle(request, store_id, aisle_id):
         return render(request, 'login.html', status=401)
     try:
         store = Store.objects.get(id=store_id)
-
         aisle = Aisle.objects.get(id=aisle_id)
-        print(store)
-        print(aisle)
 
     except Exception as e :
         print(e)
@@ -92,3 +89,37 @@ def new_aisle(request, store_id):
         'store': store,
     }
     return render(request, 'newAisle.html', context=context)
+
+def update_aisle(request, store_id, aisle_id):
+    """ Update an aisle with values input in aisle.html """
+    if not request.user.is_authenticated:
+        print("not authenticated")
+        return render(request, 'login.html', status=401)
+    try:
+        store = Store.objects.get(id=store_id)
+        aisle = Aisle.objects.get(id=aisle_id)
+    except:
+        return redirect('home')
+    if not authentication.has_permission_on_item(request.user, store):
+        return render(request, 'login.html', status=401)
+    try:
+        name = request.POST['name']
+        manager_id = request.POST['manager']
+        # update Aisle
+        aisle = Aisle.objects.get(id=aisle_id)
+        aisle.name = name
+        aisle.save()
+        # update AisleManager
+        aisle_manager = AisleManager.objects.get(id=manager_id)
+        aisle_manager.aisle = aisle
+        aisle_manager.save()
+    except:
+        context = {
+        'user': request.user,
+        'store': store,
+        'aisle': aisle,
+        #'aisle_manager': aisle_manager,
+        }
+        print("ko")
+        return redirect('aisle', store_id=store_id, aisle_id=aisle_id)
+    return redirect('/store/'+ str(store_id))
