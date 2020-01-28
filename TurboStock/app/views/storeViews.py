@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import authenticate, login as log_in, logout as log_out
-from app.authentication import authentication as au
+from app.authentication import authentication
 
 from app.models import *
 
@@ -18,7 +18,7 @@ def store(request, store_id):
     aisles = Aisle.objects.filter(store_id=store_id)
     aisle_managers = AisleManager.objects.filter(aisle_id__in=aisles)
     context = {
-        'au': au,
+        'au': authentication,
         'user': request.user,
         'store': store,
         'store_managers': store_managers,
@@ -71,4 +71,34 @@ def new_store(request):
         return render(request, 'login.html', status=401)
     return render(request, 'newStore.html', status=200)
 
-
+def update_store(request, store_id):
+    """ Update a store with values input in store.html """
+    if not request.user.is_authenticated:
+        print("not authenticated")
+        return render(request, 'login.html', status=401)
+    store = get_object_or_404(Store, pk=store_id)
+    if not authentication.has_permission_on_item(request.user, store):
+        return render(request, 'login.html', status=401)
+    try:
+        manager_id = request.POST['manager_id']
+        address = request.POST['address']
+        city = request.POST['city']
+        # update store
+        store = Store.objects.get(id=store_id)
+        store.address = address
+        store.city = city
+        store.save()
+        # update StoreManager
+        store_manager = StoreManager.objects.get(id=manager_id)
+        store_manager.store = store
+        store_manager.save()
+    except:
+        store_manager = StoreManager.objects.get(id=manager_id)
+        context = {
+        'user': request.user,
+        'store': store,
+        'store_manager': store_manager,
+        }
+        print("ko")
+        return redirect('store', store_id=store_id, context=context)
+    return redirect('/store/'+ str(store_id))
