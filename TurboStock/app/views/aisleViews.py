@@ -37,6 +37,7 @@ def aisle(request, store_id, aisle_id):
 
 
 def create_aisle(request, store_id):
+    """ Create a new aisle from newAisle.html """
     if not request.user.is_authenticated:
         print("not authenticated")
         return render(request, 'login.html', status=401)
@@ -60,6 +61,7 @@ def create_aisle(request, store_id):
 
 
 def delete_aisle(request, store_id, aisle_id):
+    """ Delete an aisle """
     if not request.user.is_authenticated:
         print("not authenticated")
         return render(request, 'login.html', status=401)
@@ -75,6 +77,7 @@ def delete_aisle(request, store_id, aisle_id):
 
 
 def new_aisle(request, store_id):
+    """ Render newAisle.html the form to create a new aisle """
     if not request.user.is_authenticated:
         print("not authenticated")
         return render(request, 'login.html', status=401)
