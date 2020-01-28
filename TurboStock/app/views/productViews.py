@@ -1,10 +1,8 @@
-
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth import authenticate, login as log_in, logout as log_out
-
+from app.authentication import authentication
 
 from app.models import *
-
 
 def product(request, product_id):
     """ View function : detail page of a product """
@@ -17,3 +15,30 @@ def product(request, product_id):
         "product": product,
     }
     return render(request, 'product.html', context=context)
+
+def create_product(request):
+    if not request.user.is_authenticated:
+        print("not authenticated")
+        return render(request, 'login.html', status=401)
+    try:
+        name = request.POST['name']
+        unit_price = request.POST['unit_price']
+        product = Product.objects.create(name=name, unit_price=unit_price)
+        print(product)
+        product.save()
+    except:
+        return render(request, 'newProduct.html')
+    return redirect('home')
+
+
+
+
+def new_product(request):
+    if not request.user.is_authenticated:
+        print("not authenticated")
+        return render(request, 'login.html', status=401)
+    path = request.path
+    context = {
+        'next': path
+    }
+    return render(request, 'newProduct.html')
