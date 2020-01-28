@@ -10,21 +10,30 @@ def aisle(request, store_id, aisle_id):
     if not request.user.is_authenticated:
         print("not authenticated")
         return render(request, 'login.html', status=401)
-    else:
-        store = get_object_or_404(Store, pk=store_id)
-    aisle = get_object_or_404(Aisle, pk=aisle_id)
+    try:
+        store = Store.objects.get(id=store_id)
+
+        aisle = Aisle.objects.get(id=aisle_id)
+        print(store)
+        print(aisle)
+
+    except Exception as e :
+        print(e)
+        return redirect('home')
+
     aisle_manager = AisleManager.objects.filter(aisle_id=aisle_id)
     aisle_managers = AisleManager.objects.all()
     stocks = Stock.objects.filter(aisle_id=aisle_id)
     products = Product.objects.all()
     context = {
+        'store': store,
         'aisle': aisle,
         'aisle_manager': aisle_manager,
         'aisle_managers': aisle_managers,
         'stocks': stocks,
         'products': products,
     }
-    return render(request, 'aisle.html')
+    return render(request, 'aisle.html', context=context)
 
 
 def create_aisle(request, store_id):
@@ -51,8 +60,18 @@ def create_aisle(request, store_id):
 
 
 def delete_aisle(request, store_id, aisle_id):
-    # TODO
-    return render(request, 'aisle.html')
+    if not request.user.is_authenticated:
+        print("not authenticated")
+        return render(request, 'login.html', status=401)
+    try:
+        store = Store.objects.get(id=store_id)
+        aisle = Aisle.objects.get(id=aisle_id)
+    except:
+        return redirect('home')
+    if not authentication.has_permission_on_item(request.user, aisle):
+        return render(request, 'login.html', status=401)
+    aisle.delete()
+    return redirect('/store/'+str(store_id))
 
 
 def new_aisle(request, store_id):

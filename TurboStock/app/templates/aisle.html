@@ -5,7 +5,7 @@
 
         <a href="/store/{{ store.id }}"><button type="button" class="btn btn-light">< Retour</button></a>
         <h1>{{ store }}</h1>
-        <p>Rayon {{ aisle.name }}</p>
+        <H2>Rayon {{ aisle.name }}</H2>
 
         <!-- Section : Informations -->
         <div class="section">
@@ -66,7 +66,7 @@
             <div class="btn-group" role="group" aria-label="buttons">
                 <a href="#"><button type="button" class="btn btn-primary mr-2">Sauvegarder</button></a>
                 <a href="#"><button type="button" class="btn btn-success mr-2">Créer un nouveau produit</button></a>
-                <a href="#"><button type="button" class="btn btn-danger mr-2">Supprimer le rayon</button></a>
+                <a href="{% url 'deleteAisle' store_id=store.id  aisle_id=aisle.id%}"><button type="button" class="btn btn-danger mr-2">Supprimer le rayon</button></a>
             </div>
 
         </div>

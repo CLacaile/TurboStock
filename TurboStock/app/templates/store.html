@@ -63,12 +63,14 @@
                         <tr>
                             <th>{{ a.id }}</th>
                             <th>{{ a.name }}</th>
+                            <th>
                             {% for m in aisle_managers %}
                                 {% if m.aisle_id == a.id %}
-                                    <th>{{ m }}</th>
+                                    {{ m }}
                                 {% endif %}
                             {% endfor %}
-                            <th><a href="/store/{{ store.id }}/aisle/{{ a.id }}"><button type="button" class="btn btn-info">Consulter</button></th>
+                            </th>
+                            <th><a href="{% url 'aisle' store_id=store.id  aisle_id=a.id%}"><button type="button" class="btn btn-info">Consulter</button></th>
                         </tr>
                     {% endfor %}
                 </table>

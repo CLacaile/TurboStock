@@ -18,6 +18,5 @@ urlpatterns = [
     path('store/<int:store_id>/aisle/new/', views.new_aisle, name='newAisle'),
     path('store/<int:store_id>/aisle/<int:aisle_id>/delete/', views.delete_aisle, name='deleteAisle'),
 
-
     path('product/<int:product_id>/', views.product, name='product')
 ]
