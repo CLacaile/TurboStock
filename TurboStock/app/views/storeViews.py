@@ -56,7 +56,6 @@ def delete_store(request, store_id):
         return render(request, 'login.html', status=401)
 
     try:
-        print(Store.objects.get(id=store_id))
         Store.objects.get(id=store_id).delete()
 
     except:

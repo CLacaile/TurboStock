@@ -24,7 +24,6 @@ def create_product(request):
         name = request.POST['name']
         unit_price = request.POST['unit_price']
         product = Product.objects.create(name=name, unit_price=unit_price)
-        print(product)
         product.save()
     except:
         return render(request, 'newProduct.html')
