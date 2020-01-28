@@ -38,15 +38,6 @@ class AuthenticationTestCase(TestCase):
     def test_authentication_empty_form(self):
         response = self.client.post('/authenticate/', {})
         self.assertEqual(response.status_code, 400)
-        self.assertEqual(response.context["user"].id, self.storeManager.id)
-
-        response = self.client.post('/authenticate/', {})
-        self.assertEqual(response.status_code, 400)
-        self.assertEqual(response.context["user"].id, self.aisleManager.id)
-
-        response = self.client.post('/authenticate/', {})
-        self.assertEqual(response.status_code, 400)
-        self.assertEqual(response.context["user"], self.ceo)
 
     def test_authentication_wrong_email(self):
         response = self.client.post('/authenticate/', {"email": WRONG_EMAIL, "password": PASSWORD})
@@ -102,51 +93,51 @@ class StoreTestCase(TestCase):
     def test_access_create_store_page_ok(self):
         request = self.factory.get('/store/new')
         request.user = self.ceo
-        response = home(request)
+        response = new_store(request)
         self.assertEqual(response.status_code, 200)
 
     def test_access_create_store_page_not_authenticated(self):
         request = self.factory.get('/store/new')
         request.user = AnonymousUser()
-        response = home(request)
+        response = new_store(request)
         self.assertEqual(response.status_code, 401)
 
     def test_access_create_store_page_not_allowed(self):
         request = self.factory.get('/store/new')
         request.user = self.aisleManager
-        response = home(request)
+        response = new_store(request)
         self.assertEqual(response.status_code, 401)
 
         request = self.factory.get('/store/new')
         request.user = self.storeManager
-        response = home(request)
+        response = new_store(request)
         self.assertEqual(response.status_code, 401)
 
     def test_create_store_ok(self):
         request = self.factory.post('/store/create', {"address": "3 rue de Brest", "city": "Rennes"})
         request.user = self.ceo
-        response = home(request)
+        response = create_store(request)
         self.assertEqual(response.status_code, 200)
 
     def test_create_store_empty_fields(self):
         request = self.factory.post('/store/create', {})
         request.user = self.ceo
-        response = home(request)
-        self.assertEqual(response.status_code, 200)
+        response = create_store(request)
+        self.assertEqual(response.status_code, 400)
 
     def test_create_store_not_authenticated(self):
         request = self.factory.get('/store/create', {})
         request.user = AnonymousUser()
-        response = home(request)
+        response = create_store(request)
         self.assertEqual(response.status_code, 401)
 
     def test_create_store_not_allowed(self):
         request = self.factory.get('/store/create', {})
         request.user = self.storeManager
-        response = home(request)
+        response = create_store(request)
         self.assertEqual(response.status_code, 401)
 
         request = self.factory.get('/store/create', {})
         request.user = self.aisleManager
-        response = home(request)
+        response = create_store(request)
         self.assertEqual(response.status_code, 401)
