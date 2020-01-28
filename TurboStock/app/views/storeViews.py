@@ -42,7 +42,6 @@ def create_store(request):
         return render(request, 'login.html', status=400)
     try:
         store = Store.objects.create(address=address, city=city)
-        print(store)
         store.save()
     except:
         return render(request, 'newStore.html', status=400)

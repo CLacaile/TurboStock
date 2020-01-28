@@ -4,11 +4,11 @@
 <div class="container">
     <h1>Nouveau Rayon - Magasin {{ store.id}} {{ store.city}}</h1>
     <p class="message">{{ message }}</p>
-    <form method="post" action='/store/{{store.id}}/ailse/create/'>
+    <form method="post" action='/store/{{store.id}}/aisle/create/'>
         {% csrf_token %}
         <div class="form-group">
             <label>Nom du rayon</label>
-            <input type="text" class="form-control" name="city">
+            <input type="text" class="form-control" name="name">
         </div>
         <button type="submit" class="btn btn-primary">Créer</button>
     </form>
