@@ -117,7 +117,7 @@ class StoreTestCase(TestCase):
         request = self.factory.post('/store/create', {"address": "3 rue de Brest", "city": "Rennes"})
         request.user = self.ceo
         response = create_store(request)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
 
     def test_create_store_empty_fields(self):
         request = self.factory.post('/store/create', {})
