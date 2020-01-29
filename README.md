@@ -38,12 +38,12 @@ Windows\TurboStock$ venv\Scripts\activate.bat
 ```
 Several fixtures are available (if starting from an empty DB, follow the order):
 * populate_stores
-* populate_users
 * populate_aisles
 * populate_products
 * populate_stocks
+* populate_users
 
-4. Run server
+1. Run server
 ```Shell
 (venv) Windows\TurboStock\TurboStock$ python manage.py runserver
 ```
