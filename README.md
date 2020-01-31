@@ -1,5 +1,9 @@
 # TurboStock
 
+## Download project
+
+Download the project (git clone or zip download) and open a cmd prompt at its base directory (you should see the README.md in this directory)
+
 ## Requirements
 
 1. Create a Python 3 virutal environment
