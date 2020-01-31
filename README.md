@@ -29,7 +29,7 @@ Windows\TurboStock$ venv\Scripts\activate.bat
 
 2. Migrate DB
 ```Shell
-(venv) Windows\TurboStock\TurboStock$ python manage.py makemigrations
+(venv) Windows\TurboStock\TurboStock$ python manage.py migrate
 ```
 
 3. Populate DB
