@@ -54,4 +54,46 @@ Several fixtures are available (if starting from an empty DB, follow the order):
 
 ## Usage
 
-1. Use admin credentials to connect (email : admin@turbostock.fr, password : turbostock)
+1. Create a superuser 
+```Shell
+(venv) Windows\TurboStock\TurboStock$ python manage.py createsuperuser
+```
+
+2. Connect with the superuser account at http://localhost:8000/admin/ and create a user (CEO, AisleManager, StoreManager)
+3. Login at http://localhost:8000/login/
+
+## Tests
+1. Run tests
+```Shell
+(venv) Windows\TurboStock\TurboStock$ python manage.py test
+```
+
+1. Write more tests
+```Shell
+TurboStock\TurboStock\app\test.py
+```
+
+## Structure
+Routes
+```Shell
+TurboStock\TurboStock\app\urls.py
+```
+
+Views( controllers )
+```Shell
+TurboStock\TurboStock\app\views\
+```
+Models
+```Shell
+TurboStock\TurboStock\app\models\
+```
+
+Templates ( html )
+```Shell
+TurboStock\TurboStock\app\template\
+```
+
+Authentication system
+```Shell
+TurboStock\TurboStock\app\authentication\
+```
